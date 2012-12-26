@@ -29,7 +29,7 @@ QUIET=0
 # Set to 1 to use linaro gcc instead of the FSF gcc
 USE_LINARO=1
 # Set to 1 to enable building of OpenOCD
-OOCD_EN=1
+OOCD_EN=0
 # Set to 'master' or a git revision number to use instead of stable version
 OOCD_GIT=
 # Set to 1 to build libstm32 provided by ST
@@ -114,12 +114,12 @@ if [ ${USE_LINARO} == 0 ] ; then
 	# For FSF GCC:
 	GCCVERSION=4.5.2
 	GCC=gcc-${GCCVERSION}
-	GCCURL=http://ftp.gnu.org/gnu/gcc/${GCC}/${GCC}.tar.gz
+	GCCURL=http://mirror.internode.on.net/pub/gnu/gcc/${GCC}/${GCC}.tar.gz
 
 	# For FSF GDB:
 	GDBVERSION=7.3.1
 	GDB=gdb-${GDBVERSION}
-	GDBURL=http://ftp.gnu.org/gnu/gdb/${GDB}.tar.bz2
+	GDBURL=http://mirror.internode.on.net/pub/gnu/gdb/${GDB}.tar.bz2
 else
 	# For Linaro GCC:
 	GCCRELEASE=4.6-2011.10
@@ -241,7 +241,7 @@ esac
 function fetch {
     if [ ! -e ${STAMPS}/$1.fetch ]; then
         log "Downloading $1 sources..."
-        wget -c --no-passive-ftp --no-check-certificate $2 && touch ${STAMPS}/$1.fetch
+        wget -c --passive-ftp --no-check-certificate $2 && touch ${STAMPS}/$1.fetch
     fi
 }
 
@@ -327,7 +327,7 @@ mkdir -p ${STAMPS} ${SOURCES}
 
 cd ${SOURCES}
 
-fetch ${BINUTILS} http://ftp.gnu.org/gnu/binutils/${BINUTILS}.tar.bz2
+fetch ${BINUTILS} http://mirror.internode.on.net/pub/gnu/binutils/${BINUTILS}.tar.bz2
 fetch ${GCC} ${GCCURL}
 fetch ${NEWLIB} ftp://sourceware.org/pub/newlib/${NEWLIB}.tar.gz
 fetch ${GDB} ${GDBURL}
