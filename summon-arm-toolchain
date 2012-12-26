@@ -20,10 +20,10 @@ set -e
 # You can also pass them as parameters to the script
 ##############################################################################
 TARGET=arm-none-eabi		# Or: TARGET=arm-elf
-PREFIX=${HOME}/sat	# Install location of your final toolchain
+PREFIX=/opt/$TARGET	# Install location of your final toolchain
 DARWIN_OPT_PATH=/usr/local	# Path in which MacPorts or Fink is installed
 # Set to 'sudo' if you need superuser privileges while installing
-SUDO=
+SUDO=sudo
 # Set to 1 to be quieter while running
 QUIET=0
 # Set to 1 to use linaro gcc instead of the FSF gcc
