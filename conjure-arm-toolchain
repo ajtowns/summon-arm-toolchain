@@ -501,6 +501,9 @@ fi
 
 if [ ! -e ${STAMPS}/${GDB}.build ]; then
     unpack ${GDB}
+    if [ "$USE_DEBIAN" = 1 ]; then
+        [ -d gdb ] && mv gdb ${GDB}
+    fi
     cd build
     log "Configuring ${GDB}"
     ../${GDB}/configure --target=${TARGET} \
