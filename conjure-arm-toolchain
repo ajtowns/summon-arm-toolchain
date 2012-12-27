@@ -190,7 +190,7 @@ if [ -f local.sh ]; then
 fi
 
 MAKEFLAGS=${PARALLEL}
-TARFLAGS=v
+TARFLAGS=-v
 
 if [ ${QUIET} != 0 ]; then
     TARFLAGS=
@@ -310,11 +310,19 @@ function unpack {
     case ${ARCHIVE} in
 	*.bz2)
 	    echo "archive type bz2"
-	    TYPE=j
+	    TARUNZ=-j
 	    ;;
-	*.gz)
+        *.gz)
 	    echo "archive type gz"
-	    TYPE=z
+	    TARUNZ=-z
+	    ;;
+        *.lzma)
+	    echo "archive type lzma"
+	    TARUNZ=--lzma
+	    ;;
+        *.xz)
+	    echo "archive type xz"
+	    TARUNZ=--xz
 	    ;;
 	*)
 	    echo "Unknown archive type of $1"
@@ -322,7 +330,7 @@ function unpack {
 	    exit 1
 	    ;;
     esac
-    ${TAR} xf${TYPE}${TARFLAGS} ${SOURCES}/$1.tar.*
+    ${TAR} ${TARUNZ} ${TARFLAGS} -xf "${ARCHIVE}"
 }
 
 # Install a build
