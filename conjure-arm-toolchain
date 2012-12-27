@@ -126,7 +126,7 @@ LIBOPENCM3=
 LIBOPENCM3_GIT=master
 
 if [ ${USE_DEBIAN} != 0 ] ; then
-        GCCVERSION=4.7.2
+        GCCVERSION=4.6.3
         GCC=gcc-${GCCVERSION}
         GDBVERSION=7.4.1
         GDB=gdb-${GCCVERSION}
@@ -345,8 +345,8 @@ mkdir -p ${STAMPS} ${SOURCES}
 cd ${SOURCES}
 
 if [ "$USE_DEBIAN" = 1 ]; then
-  $SUDO apt-get install binutils-source gcc-4.7-source gdb-source newlib-source
-  cp /usr/src/gcc-4.7/gcc-4.7.2-dfsg.tar.xz $SOURCES/${GCC}.tar.xz
+  $SUDO apt-get install binutils-source gcc-4.6-source gdb-source newlib-source
+  cp /usr/src/gcc-4.6/gcc-4.6.3-dfsg.tar.xz $SOURCES/${GCC}.tar.xz
   cp /usr/src/gdb.tar.bz2 $SOURCES/${GDB}.tar.bz2
   cp /usr/src/newlib/newlib-1.18.0.tar.lzma $SOURCES/${NEWLIB}.tar.lzma
   cp /usr/src/binutils/binutils-2.22.tar.xz $SOURCES/${BINUTILS}.tar.xz
@@ -409,7 +409,7 @@ fi
 
 if [ ! -e ${STAMPS}/${BINUTILS}.build ]; then
     unpack ${BINUTILS}
-    log "Patching binutils to allow SVC support on cortex-m3"
+    #log "Patching binutils to allow SVC support on cortex-m3"
     cd ${BINUTILS}
     patch -p1 -i ../patches/patch-binutils-2.21.1-svc-cortexm3.diff
     cd ..
@@ -445,7 +445,7 @@ if [ ! -e ${STAMPS}/${GCC}-${NEWLIB}.build ]; then
 	log "Patching gcc to add multilib support"
 	cd ${GCC}
 	patch -p0 -i ../patches/patch-gcc-config-arm-t-arm-elf.diff
-  patch -p1 -i ../patches/patch-gcc-gengtype-fix.diff
+        patch -p1 -i ../patches/patch-gcc-gengtype-fix.diff
 	patch -p0 -i ../patches/patch-libgcc-divide-exceptions.diff
 	cd ..
     fi
