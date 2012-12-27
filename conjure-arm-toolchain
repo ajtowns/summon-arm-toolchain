@@ -450,6 +450,8 @@ if [ ! -e ${STAMPS}/${GCC}-${NEWLIB}.build ]; then
 	patch -p0 -i ../patches/patch-libgcc-divide-exceptions.diff
         if [ "${USE_DEBIAN}" = 0 ]; then
           patch -p1 -i ../patches/patch-gcc-gengtype-fix.diff
+        else
+          patch -p2 -i ../patches/patch-gcc-gfdl-build.diff
         fi
 	cd ..
     fi
